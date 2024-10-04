@@ -1,0 +1,37 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgres"
+  url      = env("DATABASE_URL")
+}
+
+enum DocumentStatus {
+  ACTIVE
+  INACTIVE
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+model User {
+  id    String @id @default(uuid())
+  name  String
+  email String @unique
+
+  documents Document[]
+
+  @@map("users")
+}
+
+model Document {
+  id     String         @id @default(uuid())
+  name   String
+  status DocumentStatus
+  userId String         @map("user_id")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("documents")
+}
