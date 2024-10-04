@@ -10,7 +10,7 @@ export class CreateUserUseCase {
   constructor(private usersRepository: UsersRepository) {}
 
   async execute({ name, email }: CreateUserUseCaseRequest) {
-    const emailAlreadyExists = email === 'existent@mail.com'
+    const emailAlreadyExists = await this.usersRepository.getByEmail(email)
 
     if (emailAlreadyExists) {
       throw new AppError('E-mail already exists', 400)
