@@ -5,4 +5,5 @@ export interface UsersRepository {
   getById(id: string): Promise<User | null>
   getByEmail(email: string): Promise<User | null>
   create(data: Prisma.UserCreateInput): Promise<User>
+  delete(id: string): Promise<void>
 }
