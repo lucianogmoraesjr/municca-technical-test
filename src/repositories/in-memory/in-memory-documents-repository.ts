@@ -9,7 +9,18 @@ import {
 } from '../documents-repository'
 
 class InMemoryDocumentsRepository implements DocumentsRepository {
+  private static instance: InMemoryDocumentsRepository
   public documents: Document[] = []
+
+  private constructor() {}
+
+  public static getInstance(): InMemoryDocumentsRepository {
+    if (!InMemoryDocumentsRepository.instance) {
+      InMemoryDocumentsRepository.instance = new InMemoryDocumentsRepository()
+    }
+
+    return InMemoryDocumentsRepository.instance
+  }
 
   async fetchByUserId(userId: string): Promise<Document[]> {
     return this.documents.filter((document) => document.userId === userId)
@@ -82,4 +93,5 @@ class InMemoryDocumentsRepository implements DocumentsRepository {
   }
 }
 
-export default new InMemoryDocumentsRepository()
+export const inMemoryDocumentsRepository =
+  InMemoryDocumentsRepository.getInstance()
