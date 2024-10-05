@@ -1,7 +1,7 @@
 import { Prisma, User } from '@prisma/client'
 import { randomUUID } from 'crypto'
 import { makeUser } from 'test/factories/make-user'
-import { UsersRepository } from '../users-repository'
+import { UsersRepository, UserUpdateInput } from '../users-repository'
 
 export class InMemoryUsersRepository implements UsersRepository {
   public users: User[] = [makeUser(), makeUser()]
@@ -40,6 +40,20 @@ export class InMemoryUsersRepository implements UsersRepository {
     this.users.push(user)
 
     return user
+  }
+
+  async update({ id, email, name }: UserUpdateInput): Promise<User> {
+    const userIndex = this.users.findIndex((user) => user.id === id)
+
+    const updatedUser: User = {
+      id,
+      email,
+      name,
+    }
+
+    this.users[userIndex] = updatedUser
+
+    return updatedUser
   }
 
   async delete(id: string): Promise<void> {
