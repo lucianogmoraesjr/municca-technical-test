@@ -6,6 +6,10 @@ import { DocumentsRepository } from '../documents-repository'
 export class InMemoryDocumentsRepository implements DocumentsRepository {
   public documents: Document[] = []
 
+  async fetchByUserId(userId: string): Promise<Document[]> {
+    return this.documents.filter((document) => document.userId === userId)
+  }
+
   async create({
     name,
     status,
