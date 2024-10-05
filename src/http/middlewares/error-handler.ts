@@ -7,10 +7,11 @@ export function errorHandler(
   error: Error,
   request: Request,
   response: Response,
-  _next: NextFunction,
+  _: NextFunction,
 ) {
   if (error instanceof AppError) {
     response.status(error.statusCode).json({ message: error.message })
+    return
   }
 
   if (error instanceof ZodError) {
@@ -18,9 +19,12 @@ export function errorHandler(
       message: 'Validation error',
       issues: error.flatten().fieldErrors,
     })
+
+    return
   }
 
   console.error(error)
 
   response.sendStatus(500)
+  return
 }
