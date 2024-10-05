@@ -6,7 +6,7 @@ import { UsersRepository, UserUpdateInput } from '../users-repository'
 export class InMemoryUsersRepository implements UsersRepository {
   public users: User[] = [
     {
-      id: randomUUID(),
+      id: '4a6fd64d-d50e-4f53-b0c3-a9859d71e417',
       email: 'john@mail.com',
       name: 'John Doe',
     },
