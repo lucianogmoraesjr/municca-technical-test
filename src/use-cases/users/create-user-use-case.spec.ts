@@ -14,8 +14,8 @@ describe('Create user use case', () => {
 
   it('should be able to create a user', async () => {
     const user = await sut.execute({
-      name: 'John Doe',
-      email: 'john@mail.com',
+      name: 'Mary Doe',
+      email: 'mary@mail.com',
     })
 
     expect(user).toEqual(
