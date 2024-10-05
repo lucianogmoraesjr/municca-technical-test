@@ -1,7 +1,7 @@
 import { app } from '@/app'
 import request from 'supertest'
 
-describe('Approve document (E2E)', () => {
+describe('Reject document (E2E)', () => {
   test('[PATCH] /documents/:documentId', async () => {
     const { body } = await request(app).post('/documents').send({
       name: 'document-name.test',
@@ -9,7 +9,7 @@ describe('Approve document (E2E)', () => {
     })
 
     const response = await request(app)
-      .patch(`/documents/${body.id}/approve`)
+      .patch(`/documents/${body.id}/reject`)
       .send()
 
     expect(response.status).toBe(204)
