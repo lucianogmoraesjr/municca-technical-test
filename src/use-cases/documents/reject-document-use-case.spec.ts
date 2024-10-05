@@ -3,23 +3,23 @@ import { InMemoryDocumentsRepository } from '@/repositories/in-memory/in-memory-
 import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository'
 import { makeDocument } from 'test/factories/make-document'
 import { makeUser } from 'test/factories/make-user'
-import { ApproveDocumentUseCase } from './aprove-document-use-case'
+import { RejectDocumentUseCase } from './reject-document-use-case'
 
 let inMemoryDocumentsRepository: InMemoryDocumentsRepository
 let inMemoryUsersRepository: InMemoryUsersRepository
-let sut: ApproveDocumentUseCase
+let sut: RejectDocumentUseCase
 
-describe('Approve user document use case', () => {
+describe('Reject user document use case', () => {
   beforeEach(() => {
     inMemoryDocumentsRepository = new InMemoryDocumentsRepository()
     inMemoryUsersRepository = new InMemoryUsersRepository()
-    sut = new ApproveDocumentUseCase(
+    sut = new RejectDocumentUseCase(
       inMemoryDocumentsRepository,
       inMemoryUsersRepository,
     )
   })
 
-  it('should be able to approve an user document', async () => {
+  it('should be able to reject an user document', async () => {
     await inMemoryUsersRepository.create(
       makeUser({
         id: 'user-id',
@@ -38,10 +38,10 @@ describe('Approve user document use case', () => {
       userId: 'user-id',
     })
 
-    expect(inMemoryDocumentsRepository.documents[0].status).toBe('APPROVED')
+    expect(inMemoryDocumentsRepository.documents[0].status).toBe('REJECTED')
   })
 
-  it('should not be able to approve an user document if user does not exists', async () => {
+  it('should not be able to reject an user document if user does not exists', async () => {
     await expect(
       sut.execute({
         documentId: 'document-id',
@@ -50,7 +50,7 @@ describe('Approve user document use case', () => {
     ).rejects.toThrowError(AppError)
   })
 
-  it('should not be able to approve a non-existent user document', async () => {
+  it('should not be able to reject a non-existent user document', async () => {
     await inMemoryUsersRepository.create(
       makeUser({
         id: 'user-id',
