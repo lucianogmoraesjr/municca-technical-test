@@ -8,7 +8,7 @@ import {
   UpdateDocumentInput,
 } from '../documents-repository'
 
-export class InMemoryDocumentsRepository implements DocumentsRepository {
+class InMemoryDocumentsRepository implements DocumentsRepository {
   public documents: Document[] = []
 
   async fetchByUserId(userId: string): Promise<Document[]> {
@@ -81,3 +81,5 @@ export class InMemoryDocumentsRepository implements DocumentsRepository {
     this.documents.splice(documentIndex, 1)
   }
 }
+
+export default new InMemoryDocumentsRepository()
