@@ -2,6 +2,7 @@ import { Document, Prisma } from '@prisma/client'
 import { randomUUID } from 'node:crypto'
 
 import {
+  DeleteByUserIdInput,
   DocumentsRepository,
   GetByIdAndUserIdInput,
 } from '../documents-repository'
@@ -44,5 +45,16 @@ export class InMemoryDocumentsRepository implements DocumentsRepository {
     this.documents.push(document)
 
     return document
+  }
+
+  async deleteByUserId({
+    documentId,
+    userId,
+  }: DeleteByUserIdInput): Promise<void> {
+    const documentIndex = this.documents.findIndex(
+      (document) => document.id === documentId && document.userId === userId,
+    )
+
+    this.documents.splice(documentIndex, 1)
   }
 }

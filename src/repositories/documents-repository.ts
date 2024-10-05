@@ -5,8 +5,14 @@ export interface GetByIdAndUserIdInput {
   documentId: string
 }
 
+export interface DeleteByUserIdInput {
+  userId: string
+  documentId: string
+}
+
 export interface DocumentsRepository {
   fetchByUserId(userId: string): Promise<Document[]>
   getByIdAndUserId(input: GetByIdAndUserIdInput): Promise<Document | null>
   create(data: Prisma.DocumentUncheckedCreateInput): Promise<Document>
+  deleteByUserId(input: DeleteByUserIdInput): Promise<void>
 }
