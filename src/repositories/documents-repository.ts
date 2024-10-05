@@ -5,10 +5,10 @@ export interface GetByIdAndUserIdInput {
   documentId: string
 }
 
-export type UpdateDocumentInput = Omit<
-  Required<Prisma.DocumentUncheckedCreateInput>,
-  'status'
->
+export type UpdateDocumentInput = Required<
+  Omit<Prisma.DocumentUncheckedCreateInput, 'name' | 'status'>
+> &
+  Partial<Prisma.DocumentUncheckedCreateInput>
 
 export interface DeleteByUserIdInput {
   userId: string

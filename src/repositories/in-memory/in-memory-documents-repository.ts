@@ -47,7 +47,12 @@ export class InMemoryDocumentsRepository implements DocumentsRepository {
     return document
   }
 
-  async update({ id, name, userId }: UpdateDocumentInput): Promise<Document> {
+  async update({
+    id,
+    name,
+    userId,
+    status,
+  }: UpdateDocumentInput): Promise<Document> {
     const documentIndex = this.documents.findIndex(
       (document) => document.id === id && document.userId === userId,
     )
@@ -55,8 +60,9 @@ export class InMemoryDocumentsRepository implements DocumentsRepository {
     const updatedDocument: Document = {
       ...this.documents[documentIndex],
       id,
-      name,
-      userId,
+      userId: userId,
+      name: name ? name : this.documents[documentIndex].name,
+      status: status ? status : this.documents[documentIndex].status,
     }
 
     this.documents[documentIndex] = updatedDocument
