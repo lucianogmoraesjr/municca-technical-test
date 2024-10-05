@@ -1,5 +1,6 @@
 import { Router } from 'express'
 import { CreateDocumentController } from './create-document-controller'
+import { DeleteUserDocumentController } from './delete-user-document-controller'
 import { FetchUserDocumentsController } from './fetch-user-documents-controller'
 import { GetUserDocumentController } from './get-user-document-controller'
 import { UpdateUserDocumentController } from './update-user-document-controller'
@@ -10,10 +11,12 @@ const fetchUserDocumentsController = new FetchUserDocumentsController()
 const getUserDocumentController = new GetUserDocumentController()
 const createDocumentController = new CreateDocumentController()
 const updateUserDocumentController = new UpdateUserDocumentController()
+const deleteUserDocumentController = new DeleteUserDocumentController()
 
 documentsRoutes.get('/', fetchUserDocumentsController.handle)
 documentsRoutes.get('/:documentId', getUserDocumentController.handle)
 documentsRoutes.post('/', createDocumentController.handle)
 documentsRoutes.put('/:documentId', updateUserDocumentController.handle)
+documentsRoutes.delete('/:documentId', deleteUserDocumentController.handle)
 
 export { documentsRoutes }
