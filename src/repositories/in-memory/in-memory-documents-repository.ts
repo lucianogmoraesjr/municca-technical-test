@@ -1,7 +1,10 @@
 import { Document, Prisma } from '@prisma/client'
 import { randomUUID } from 'node:crypto'
 
-import { DocumentsRepository } from '../documents-repository'
+import {
+  DocumentsRepository,
+  GetByIdAndUserIdInput,
+} from '../documents-repository'
 
 export class InMemoryDocumentsRepository implements DocumentsRepository {
   public documents: Document[] = []
@@ -10,13 +13,29 @@ export class InMemoryDocumentsRepository implements DocumentsRepository {
     return this.documents.filter((document) => document.userId === userId)
   }
 
+  async getByIdAndUserId({
+    documentId,
+    userId,
+  }: GetByIdAndUserIdInput): Promise<Document | null> {
+    const document = this.documents.find(
+      (document) => document.id === documentId && document.userId === userId,
+    )
+
+    if (!document) {
+      return null
+    }
+
+    return document
+  }
+
   async create({
     name,
     status,
     userId,
+    id,
   }: Prisma.DocumentUncheckedCreateInput): Promise<Document> {
     const document: Document = {
-      id: randomUUID(),
+      id: id ?? randomUUID(),
       name,
       status,
       userId,

@@ -3,9 +3,9 @@ import { randomUUID } from 'node:crypto'
 
 import { User } from '@prisma/client'
 
-export function makeUser(override: Partial<User> = {}, id?: string) {
+export function makeUser(override: Partial<User> = {}) {
   const user: User = {
-    id: id ?? randomUUID(),
+    id: override.id ?? randomUUID(),
     name: faker.person.fullName(),
     email: faker.internet.email().toLowerCase(),
     ...override,
