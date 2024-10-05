@@ -26,10 +26,10 @@ model User {
 }
 
 model Document {
-  id     String         @id @default(uuid())
+  id     String          @id @default(uuid())
   name   String
-  status DocumentStatus
-  userId String         @map("user_id")
+  status DocumentStatus? @default(PENDING)
+  userId String          @map("user_id")
 
   user User @relation(fields: [userId], references: [id])
 

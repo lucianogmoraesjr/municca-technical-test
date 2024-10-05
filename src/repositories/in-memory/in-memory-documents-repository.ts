@@ -5,6 +5,7 @@ import {
   DeleteByUserIdInput,
   DocumentsRepository,
   GetByIdAndUserIdInput,
+  UpdateDocumentInput,
 } from '../documents-repository'
 
 export class InMemoryDocumentsRepository implements DocumentsRepository {
@@ -31,20 +32,36 @@ export class InMemoryDocumentsRepository implements DocumentsRepository {
 
   async create({
     name,
-    status,
     userId,
     id,
   }: Prisma.DocumentUncheckedCreateInput): Promise<Document> {
     const document: Document = {
       id: id ?? randomUUID(),
       name,
-      status,
+      status: 'PENDING',
       userId,
     }
 
     this.documents.push(document)
 
     return document
+  }
+
+  async update({ id, name, userId }: UpdateDocumentInput): Promise<Document> {
+    const documentIndex = this.documents.findIndex(
+      (document) => document.id === id && document.userId === userId,
+    )
+
+    const updatedDocument: Document = {
+      ...this.documents[documentIndex],
+      id,
+      name,
+      userId,
+    }
+
+    this.documents[documentIndex] = updatedDocument
+
+    return updatedDocument
   }
 
   async deleteByUserId({

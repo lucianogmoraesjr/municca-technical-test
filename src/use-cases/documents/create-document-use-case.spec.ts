@@ -13,7 +13,6 @@ describe('Create user use case', () => {
   it('should be able to create a document', async () => {
     const user = await sut.execute({
       name: 'document-name',
-      status: 'PENDING',
       userId: 'user-id',
     })
 
