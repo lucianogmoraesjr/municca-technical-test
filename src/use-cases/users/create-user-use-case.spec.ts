@@ -1,14 +1,12 @@
 import { AppError } from '@/errors/app-error'
-import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository'
+import { inMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository'
 import { makeUser } from 'test/factories/make-user'
 import { CreateUserUseCase } from './create-user-use-case'
 
-let inMemoryUsersRepository: InMemoryUsersRepository
 let sut: CreateUserUseCase
 
 describe('Create user use case', () => {
   beforeEach(() => {
-    inMemoryUsersRepository = new InMemoryUsersRepository()
     sut = new CreateUserUseCase(inMemoryUsersRepository)
   })
 

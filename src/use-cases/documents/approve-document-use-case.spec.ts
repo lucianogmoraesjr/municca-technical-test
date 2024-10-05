@@ -1,18 +1,14 @@
 import { AppError } from '@/errors/app-error'
-import { InMemoryDocumentsRepository } from '@/repositories/in-memory/in-memory-documents-repository'
-import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository'
+import { inMemoryDocumentsRepository } from '@/repositories/in-memory/in-memory-documents-repository'
+import { inMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository'
 import { makeDocument } from 'test/factories/make-document'
 import { makeUser } from 'test/factories/make-user'
 import { ApproveDocumentUseCase } from './aprove-document-use-case'
 
-let inMemoryDocumentsRepository: InMemoryDocumentsRepository
-let inMemoryUsersRepository: InMemoryUsersRepository
 let sut: ApproveDocumentUseCase
 
 describe('Approve user document use case', () => {
   beforeEach(() => {
-    inMemoryDocumentsRepository = new InMemoryDocumentsRepository()
-    inMemoryUsersRepository = new InMemoryUsersRepository()
     sut = new ApproveDocumentUseCase(
       inMemoryDocumentsRepository,
       inMemoryUsersRepository,

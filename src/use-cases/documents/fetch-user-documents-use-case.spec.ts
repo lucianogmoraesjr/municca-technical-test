@@ -1,13 +1,11 @@
-import { InMemoryDocumentsRepository } from '@/repositories/in-memory/in-memory-documents-repository'
+import { inMemoryDocumentsRepository } from '@/repositories/in-memory/in-memory-documents-repository'
 import { makeDocument } from 'test/factories/make-document'
 import { FetchUserDocumentsUseCase } from './fetch-user-documents-use-case'
 
-let inMemoryDocumentsRepository: InMemoryDocumentsRepository
 let sut: FetchUserDocumentsUseCase
 
 describe('Fetch user documents use case', () => {
   beforeEach(() => {
-    inMemoryDocumentsRepository = new InMemoryDocumentsRepository()
     sut = new FetchUserDocumentsUseCase(inMemoryDocumentsRepository)
   })
 

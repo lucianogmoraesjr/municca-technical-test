@@ -1,12 +1,10 @@
-import { InMemoryDocumentsRepository } from '@/repositories/in-memory/in-memory-documents-repository'
+import { inMemoryDocumentsRepository } from '@/repositories/in-memory/in-memory-documents-repository'
 import { CreateDocumentUseCase } from './create-document-use-case'
 
-let inMemoryDocumentsRepository: InMemoryDocumentsRepository
 let sut: CreateDocumentUseCase
 
 describe('Create user use case', () => {
   beforeEach(() => {
-    inMemoryDocumentsRepository = new InMemoryDocumentsRepository()
     sut = new CreateDocumentUseCase(inMemoryDocumentsRepository)
   })
 

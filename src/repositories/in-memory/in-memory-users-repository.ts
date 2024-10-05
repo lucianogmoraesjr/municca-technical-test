@@ -3,7 +3,8 @@ import { randomUUID } from 'crypto'
 import { makeUser } from 'test/factories/make-user'
 import { UsersRepository, UserUpdateInput } from '../users-repository'
 
-export class InMemoryUsersRepository implements UsersRepository {
+class InMemoryUsersRepository implements UsersRepository {
+  private static instance: InMemoryUsersRepository
   public users: User[] = [
     {
       id: '4a6fd64d-d50e-4f53-b0c3-a9859d71e417',
@@ -12,6 +13,16 @@ export class InMemoryUsersRepository implements UsersRepository {
     },
     makeUser(),
   ]
+
+  private constructor() {}
+
+  public static getInstance(): InMemoryUsersRepository {
+    if (!InMemoryUsersRepository.instance) {
+      InMemoryUsersRepository.instance = new InMemoryUsersRepository()
+    }
+
+    return InMemoryUsersRepository.instance
+  }
 
   async getAll(): Promise<User[]> {
     return this.users
@@ -69,3 +80,5 @@ export class InMemoryUsersRepository implements UsersRepository {
     this.users.splice(userIndex, 1)
   }
 }
+
+export const inMemoryUsersRepository = InMemoryUsersRepository.getInstance()

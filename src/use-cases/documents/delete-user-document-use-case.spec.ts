@@ -1,18 +1,14 @@
 import { AppError } from '@/errors/app-error'
-import { InMemoryDocumentsRepository } from '@/repositories/in-memory/in-memory-documents-repository'
-import { InMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository'
+import { inMemoryDocumentsRepository } from '@/repositories/in-memory/in-memory-documents-repository'
+import { inMemoryUsersRepository } from '@/repositories/in-memory/in-memory-users-repository'
 import { makeDocument } from 'test/factories/make-document'
 import { makeUser } from 'test/factories/make-user'
 import { DeleteUserDocumentUseCase } from './delete-user-document-use-case'
 
-let inMemoryDocumentsRepository: InMemoryDocumentsRepository
-let inMemoryUsersRepository: InMemoryUsersRepository
 let sut: DeleteUserDocumentUseCase
 
 describe('Delete user document by id use case', () => {
   beforeEach(() => {
-    inMemoryDocumentsRepository = new InMemoryDocumentsRepository()
-    inMemoryUsersRepository = new InMemoryUsersRepository()
     sut = new DeleteUserDocumentUseCase(
       inMemoryDocumentsRepository,
       inMemoryUsersRepository,
