@@ -14,6 +14,7 @@ describe('Create user use case', () => {
     const user = await sut.execute({
       name: 'Mary Doe',
       email: 'mary@mail.com',
+      password: '12345678',
     })
 
     expect(user).toEqual(
@@ -34,6 +35,7 @@ describe('Create user use case', () => {
       sut.execute({
         name: 'John Doe',
         email: 'existent@mail.com',
+        password: '12345678',
       }),
     ).rejects.toThrowError(AppError)
   })

@@ -6,17 +6,19 @@ import { makeCreateUserUseCase } from '@/use-cases/users/factories/make-create-u
 const createUserBodySchema = z.object({
   name: z.string().min(3),
   email: z.string().email(),
+  password: z.string().min(6),
 })
 
 export class CreateUserController {
   async handle(request: Request, response: Response) {
-    const { email, name } = createUserBodySchema.parse(request.body)
+    const { email, name, password } = createUserBodySchema.parse(request.body)
 
     const createUserUseCase = makeCreateUserUseCase()
 
     const user = await createUserUseCase.execute({
       email,
       name,
+      password,
     })
 
     response.status(201).json(user)

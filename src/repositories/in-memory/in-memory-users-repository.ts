@@ -1,4 +1,5 @@
 import { Prisma, User } from '@prisma/client'
+import { hashSync } from 'bcryptjs'
 import { randomUUID } from 'crypto'
 import { makeUser } from 'test/factories/make-user'
 import { UsersRepository, UserUpdateInput } from '../users-repository'
@@ -10,6 +11,9 @@ class InMemoryUsersRepository implements UsersRepository {
       id: '4a6fd64d-d50e-4f53-b0c3-a9859d71e417',
       email: 'john@mail.com',
       name: 'John Doe',
+      passwordHash: hashSync('12345678', 8),
+      createdAt: new Date(),
+      updatedAt: new Date(),
     },
     makeUser(),
   ]
@@ -53,6 +57,9 @@ class InMemoryUsersRepository implements UsersRepository {
       id: data.id ?? randomUUID(),
       name: data.name,
       email: data.email,
+      passwordHash: data.passwordHash,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     }
 
     this.users.push(user)
@@ -67,6 +74,9 @@ class InMemoryUsersRepository implements UsersRepository {
       id,
       email,
       name,
+      passwordHash: this.users[userIndex].passwordHash,
+      createdAt: this.users[userIndex].createdAt,
+      updatedAt: new Date(),
     }
 
     this.users[userIndex] = updatedUser
