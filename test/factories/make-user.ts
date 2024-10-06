@@ -8,6 +8,9 @@ export function makeUser(override: Partial<User> = {}) {
     id: override.id ?? randomUUID(),
     name: faker.person.fullName(),
     email: faker.internet.email().toLowerCase(),
+    passwordHash: faker.internet.password(),
+    createdAt: new Date(),
+    updatedAt: new Date(),
     ...override,
   }
 
