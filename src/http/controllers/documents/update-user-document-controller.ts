@@ -5,7 +5,7 @@ import { makeUpdateUserDocumentUseCase } from '@/use-cases/documents/factories/m
 
 export class UpdateUserDocumentController {
   async handle(request: Request, response: Response) {
-    const userId = '4a6fd64d-d50e-4f53-b0c3-a9859d71e417'
+    const { id: userId } = request.user
 
     const updateUserDocumentBodySchema = z.object({
       name: z.string().min(3),

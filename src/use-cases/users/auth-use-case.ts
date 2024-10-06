@@ -24,7 +24,7 @@ export class AuthUseCase {
       throw new AppError('Invalid credentials', 401)
     }
 
-    const accessToken = sign({ userId: user.id }, 'jwt-secret', {
+    const accessToken = sign({ sub: user.id }, 'jwt-secret', {
       expiresIn: '1d',
     })
 

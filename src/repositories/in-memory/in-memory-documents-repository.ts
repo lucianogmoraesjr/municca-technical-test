@@ -23,7 +23,11 @@ class InMemoryDocumentsRepository implements DocumentsRepository {
   }
 
   async fetchByUserId(userId: string): Promise<Document[]> {
-    return this.documents.filter((document) => document.userId === userId)
+    const documents = this.documents.filter(
+      (document) => document.userId === userId,
+    )
+
+    return documents
   }
 
   async getByIdAndUserId({
@@ -51,6 +55,8 @@ class InMemoryDocumentsRepository implements DocumentsRepository {
       name,
       status: 'PENDING',
       userId,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     }
 
     this.documents.push(document)
@@ -74,6 +80,7 @@ class InMemoryDocumentsRepository implements DocumentsRepository {
       userId: userId,
       name: name ? name : this.documents[documentIndex].name,
       status: status ? status : this.documents[documentIndex].status,
+      updatedAt: new Date(),
     }
 
     this.documents[documentIndex] = updatedDocument

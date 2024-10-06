@@ -5,7 +5,7 @@ import { makeApproveDocumentUseCase } from '@/use-cases/documents/factories/make
 
 export class ApproveDocumentController {
   async handle(request: Request, response: Response) {
-    const userId = '4a6fd64d-d50e-4f53-b0c3-a9859d71e417'
+    const { id: userId } = request.user
 
     const approveDocumentParamsSchema = z.object({
       documentId: z.string().uuid(),

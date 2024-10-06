@@ -4,12 +4,13 @@ import z from 'zod'
 
 export class CreateDocumentController {
   async handle(request: Request, response: Response) {
+    const { id: userId } = request.user
+
     const createDocumentBodySchema = z.object({
-      userId: z.string().uuid(),
       name: z.string().min(3),
     })
 
-    const { name, userId } = createDocumentBodySchema.parse(request.body)
+    const { name } = createDocumentBodySchema.parse(request.body)
 
     const createDocumentUseCase = makeCreateDocumentUseCase()
 
