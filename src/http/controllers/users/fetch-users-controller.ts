@@ -1,3 +1,4 @@
+import { UserPresenter } from '@/http/presenters/user-presenter'
 import { makeFetchUsersUseCase } from '@/use-cases/users/factories/make-fetch-users-use-case'
 import { Request, Response } from 'express'
 
@@ -7,6 +8,6 @@ export class FetchUsersController {
 
     const users = await fetchUsersUseCase.execute()
 
-    response.json(users)
+    response.json(users.map(UserPresenter.toHttp))
   }
 }

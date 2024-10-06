@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import z from 'zod'
 
+import { UserPresenter } from '@/http/presenters/user-presenter'
 import { makeGetUserUseCase } from '@/use-cases/users/factories/make-get-user-use-case'
 
 const getUserParamsSchema = z.object({
@@ -15,6 +16,6 @@ export class GetUserController {
 
     const user = await getUserUseCase.execute(userId)
 
-    response.json(user)
+    response.json(UserPresenter.toHttp(user))
   }
 }
