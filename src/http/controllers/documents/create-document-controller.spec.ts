@@ -3,10 +3,17 @@ import request from 'supertest'
 
 describe('Create document (E2E)', () => {
   test('[POST] /documents', async () => {
-    const response = await request(app).post('/documents').send({
-      name: 'document-name.test',
-      userId: '4a6fd64d-d50e-4f53-b0c3-a9859d71e417',
+    const { body: authResponseBody } = await request(app).post('/auth').send({
+      email: 'john@mail.com',
+      password: '12345678',
     })
+
+    const response = await request(app)
+      .post('/documents')
+      .set('Authorization', `Bearer ${authResponseBody.accessToken}`)
+      .send({
+        name: 'document-name.test',
+      })
 
     expect(response.status).toBe(201)
     expect(response.body).toMatchObject({

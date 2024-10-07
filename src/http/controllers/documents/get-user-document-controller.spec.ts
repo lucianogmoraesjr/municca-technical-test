@@ -3,12 +3,22 @@ import request from 'supertest'
 
 describe('Update user document (E2E)', () => {
   test('[GET] /documents/:documentId', async () => {
-    const { body } = await request(app).post('/documents').send({
-      name: 'document-name.test',
-      userId: '4a6fd64d-d50e-4f53-b0c3-a9859d71e417',
+    const { body: authResponseBody } = await request(app).post('/auth').send({
+      email: 'john@mail.com',
+      password: '12345678',
     })
 
-    const response = await request(app).get(`/documents/${body.id}`).send()
+    const { body } = await request(app)
+      .post('/documents')
+      .set('Authorization', `Bearer ${authResponseBody.accessToken}`)
+      .send({
+        name: 'document-name.test',
+      })
+
+    const response = await request(app)
+      .get(`/documents/${body.id}`)
+      .set('Authorization', `Bearer ${authResponseBody.accessToken}`)
+      .send()
 
     expect(response.status).toBe(200)
     expect(response.body).toMatchObject({
