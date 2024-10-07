@@ -6,7 +6,10 @@ export interface GetByIdAndUserIdInput {
 }
 
 export type UpdateDocumentInput = Required<
-  Omit<Prisma.DocumentUncheckedCreateInput, 'name' | 'status'>
+  Omit<
+    Prisma.DocumentUncheckedCreateInput,
+    'name' | 'status' | 'createdAt' | 'updatedAt'
+  >
 > &
   Partial<Prisma.DocumentUncheckedCreateInput>
 

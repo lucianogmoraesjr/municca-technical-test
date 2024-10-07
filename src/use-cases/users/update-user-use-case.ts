@@ -18,6 +18,7 @@ export class UpdateUserUseCase {
     }
 
     const updatedUser = await this.usersRepository.update({
+      ...userExists,
       id,
       email,
       name,
