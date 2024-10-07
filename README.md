@@ -4,7 +4,7 @@
 
 <p align="center"><img src="https://img.shields.io/badge/version-v1-%23339933" alt="shields"></p>
 
-<p>A Document Management API é uma aplicação projetada para gerenciar documentos de usuários de forma eficiente e segura. Este projeto foi desenvolvido como um teste técnico para a empresa Municca, com foco na criação de uma solução que não apenas atenda aos requisitos funcionais, mas que também siga as melhores práticas de desenvolvimento.
+<p>Este projeto foi desenvolvido como um teste técnico para a empresa Municca, com foco na criação de uma solução que não apenas atenda aos requisitos funcionais, mas que também siga as melhores práticas de desenvolvimento.
 
 Utilizei uma arquitetura modular e apliquei padrões de projeto como Repository Pattern e inversões de dependências para promover uma melhor separação de responsabilidades e facilitar a manutenção do código. Os testes unitários foram implementados para garantir a qualidade do software, utilizando bibliotecas como Vitest para garantir que cada componente funcione como esperado e fornece uma documentação completa através do Swagger, facilitando a integração e uso por parte de outros desenvolvedores.</p>
 
