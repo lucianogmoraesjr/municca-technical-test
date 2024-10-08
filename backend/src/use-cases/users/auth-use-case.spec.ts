@@ -9,7 +9,7 @@ describe('Auth user use case', () => {
     sut = new AuthUseCase(inMemoryUsersRepository)
   })
 
-  it('should be able to create a user', async () => {
+  it('should be able to authenticate an user', async () => {
     const accessToken = await sut.execute({
       email: 'john@mail.com',
       password: '12345678',
@@ -22,7 +22,7 @@ describe('Auth user use case', () => {
     )
   })
 
-  it('should not be able to auth a non-existent user', async () => {
+  it('should not be able to authenticate a non-existent user', async () => {
     await expect(
       sut.execute({
         email: 'nonexistent@mail.com',
@@ -31,7 +31,7 @@ describe('Auth user use case', () => {
     ).rejects.toThrowError(AppError)
   })
 
-  it('should not be able to auth an user with wrong password', async () => {
+  it('should not be able to authenticate an user with wrong password', async () => {
     await expect(
       sut.execute({
         email: 'john@mail.com',
